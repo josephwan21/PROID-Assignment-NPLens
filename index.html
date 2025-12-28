@@ -68,7 +68,7 @@
                 <div class="artifact-initial-left">
                     <img src="filmprojector.jpg" alt="Film Projector Image" class="artifact-image" />
                 </div>
-                <div class="artifiact-initial-right">
+                <div class="artifact-initial-right">
                     <h3>16mm Portable Film Projector</h3>
                     <p>Late 1960s – 1980s</p>
                 </div>
@@ -85,11 +85,20 @@
                 <h2 id="artifact-year"></h2>
                 <p id="artifact-desc">Select an artifact to view it in 3D.</p>
             </div>
-            <div class="artifact-viewer" id="viewer"></div>
+            
+            <div class="artifact-viewer-wrapper">
+              <div class="artifact-viewer" id="viewer"></div>
+              <button class="expand-btn" id="expandBtn">Expand ⤢</button>
+            </div>
         </div>
     </section>
 
   </main>
+
+  <div class="modal hidden" id="viewerModal">
+    <button class="close-btn" id="closeModal">✕</button>
+    <div class="modal-viewer" id="modalViewer"></div>
+  </div>
 
   <!-- ================= SCRIPT ================= -->
   <script type="module" src="script.js"></script>

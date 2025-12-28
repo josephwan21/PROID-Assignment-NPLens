@@ -11,12 +11,12 @@ const cards = document.querySelectorAll(".artifact-card");
 
 // Scene
 const scene = new THREE.Scene();
-scene.background = new THREE.Color('skyblue');
+scene.background = new THREE.Color('lightblue');
 
 // Camera
 const camera = new THREE.PerspectiveCamera(
   60,
-  window.innerWidth / window.innerHeight,
+  1,
   0.1,
   1000
 );
@@ -24,7 +24,8 @@ camera.position.set(0, 1, 0.5);
 
 // Renderer
 const renderer = new THREE.WebGLRenderer({ antialias: true });
-renderer.setSize(window.innerWidth, window.innerHeight);
+//renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setPixelRatio(window.devicePixelRatio);
 container.appendChild(renderer.domElement);
 
 // Controls ✅
@@ -42,7 +43,7 @@ const loader = new GLTFLoader();
 let model = null;
 
 // Resize
-function resizeRenderer() {
+/*function resizeRenderer() {
   const style = getComputedStyle(container);
   const width = container.clientWidth - parseFloat(style.paddingLeft) - parseFloat(style.paddingRight);
   const height = container.clientHeight - parseFloat(style.paddingTop) - parseFloat(style.paddingBottom);
@@ -52,8 +53,29 @@ function resizeRenderer() {
   camera.updateProjectionMatrix();
   renderer.setSize(width, height);
 }
-window.addEventListener("resize", resizeRenderer);
-resizeRenderer();
+*/
+
+function resizeRenderer(containerEl) {
+  const width = containerEl.clientWidth;
+  const height = containerEl.clientHeight;
+
+  renderer.setSize(width, height, false);
+  camera.aspect = width / height;
+  camera.updateProjectionMatrix();
+}
+
+resizeRenderer(container);
+
+/*window.addEventListener("resize", resizeRenderer);
+resizeRenderer();*/
+
+window.addEventListener("resize", () => {
+  const target = modal.classList.contains("hidden")
+    ? container
+    : modalViewer;
+
+  resizeRenderer(target);
+});
 
 // Load model
 /*let model;
@@ -74,11 +96,11 @@ window.addEventListener("keydown", (e) => keys[e.key] = true);
 window.addEventListener("keyup", (e) => keys[e.key] = false);
 
 // Resize
-window.addEventListener("resize", () => {
+/*window.addEventListener("resize", () => {
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
   renderer.setSize(window.innerWidth, window.innerHeight);
-});
+});*/
 
 // Animate
 function animate() {
@@ -124,4 +146,38 @@ cards.forEach(card => {
       error => console.error(error)
     );
   });
+});
+
+//Modal Section
+const expandBtn = document.getElementById("expandBtn");
+const modal = document.getElementById("viewerModal");
+const modalViewer = document.getElementById("modalViewer");
+const normalViewer = document.getElementById("viewer");
+
+expandBtn.addEventListener("click", () => {
+  modal.classList.remove("hidden");
+  modalViewer.appendChild(renderer.domElement);
+
+  renderer.setSize(
+    modalViewer.clientWidth,
+    modalViewer.clientHeight
+  );
+
+  camera.aspect =
+    modalViewer.clientWidth / modalViewer.clientHeight;
+  camera.updateProjectionMatrix();
+});
+
+document.getElementById("closeModal").addEventListener("click", () => {
+  modal.classList.add("hidden");
+  normalViewer.appendChild(renderer.domElement);
+
+  renderer.setSize(
+    normalViewer.clientWidth,
+    normalViewer.clientHeight
+  );
+
+  camera.aspect =
+    normalViewer.clientWidth / normalViewer.clientHeight;
+  camera.updateProjectionMatrix();
 });
