@@ -127,6 +127,9 @@ cards.forEach(card => {
     const year = card.dataset.year;
     const desc = card.dataset.desc;
 
+    container.classList.add("visible");
+    resizeRenderer(container);
+
     // Update info
     nameEl.textContent = name;
     yearEl.textContent = year;
