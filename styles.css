@@ -4,7 +4,7 @@
 
 body {
   margin: 0;
-  font-family: Georgia, serif;
+  font-family: 'Times New Roman', serif;
   background: #f4f1ec;
   color: #2b2b2b;
 }
@@ -58,11 +58,12 @@ body {
   background: white;
   padding: 1.2rem;
   margin-bottom: 1rem;
-  border-left: 4px solid #8b7a5e;
   cursor: pointer;
   border-radius: 6px;
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  font-size: 1.1rem;
 }
+ /*border-left: 4px solid #8b7a5e;*/
 
 .artifact-initial {
   display: flex;
@@ -70,15 +71,16 @@ body {
 }
 
 .artifact-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
-}
+  transform: translateY(2px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+} 
 
 /* VIEWER */
 .viewer-panel {
   max-width: 700px;
   padding: 1.5rem;
   border-radius: 8px;
+  font-size: 1.1rem;
 }
 /*
 #viewer {
