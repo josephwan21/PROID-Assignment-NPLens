@@ -106,13 +106,13 @@ window.addEventListener("keyup", (e) => keys[e.key] = false);
 function animate() {
   requestAnimationFrame(animate);
 
-  if (model) {
+  /*if (model) {
     const step = 0.05;
     if (keys["ArrowUp"]) model.position.z -= step;
     if (keys["ArrowDown"]) model.position.z += step;
     if (keys["ArrowLeft"]) model.position.x -= step;
     if (keys["ArrowRight"]) model.position.x += step;
-  }
+  }*/
 
   controls.update();
   renderer.render(scene, camera);
